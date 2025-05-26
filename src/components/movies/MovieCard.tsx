@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { roundTo } from "@/utils/utils";
 
 interface Movie {
   id: string;
@@ -31,7 +32,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
       )}
       <div className="p-3">
         <div className="font-semibold text-white truncate">{movie.title}</div>
-        <div className="text-xs text-gray-400 mt-1">⭐ {movie.rating}</div>
+        <div className="text-xs text-gray-400 mt-1">
+          ⭐ {roundTo(movie.rating, 2)}
+        </div>
       </div>
     </div>
   );
