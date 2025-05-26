@@ -1,41 +1,66 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { fetchTrendingMovies, Movie } from "@/lib/tmdb";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import Image from "next/image";
-import { roundTo } from "@/utils/utils";
-
-interface Movie {
-  id: string;
-  title: string;
-  image?: string;
-  rating: number;
-}
 
 interface MovieCardProps {
   movie: Movie;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+function MovieCardItem({ movie }: MovieCardProps) {
   return (
-    <div className="bg-[#232733] rounded-lg overflow-hidden shadow-md flex flex-col">
-      {movie.image ? (
-        <Image
-          src={movie.image}
-          alt={movie.title}
-          width={300}
-          height={180}
-          className="object-cover w-full h-44"
-        />
-      ) : (
-        <div className="bg-gray-700 w-full h-44 flex items-center justify-center text-gray-400">
-          No Image
-        </div>
-      )}
-      <div className="p-3">
-        <div className="font-semibold text-white truncate">{movie.title}</div>
-        <div className="text-xs text-gray-400 mt-1">
-          ⭐ {roundTo(movie.rating, 2)}
+    <div className="bg-movie-secondary rounded-lg overflow-hidden shadow-lg">
+      <Image
+        src={movie.image}
+        alt={movie.title}
+        className="w-full h-[300px] object-cover"
+        width={300}
+        height={180}
+      />
+      <div className="p-4">
+        <h3 className="text-white font-semibold mb-2">{movie.title}</h3>
+        <div className="flex items-center">
+          <span className="text-yellow-400">★</span>
+          <span className="text-white ml-1">{movie.rating.toFixed(1)}</span>
         </div>
       </div>
+    </div>
+  );
+}
+
+export default function MovieCard() {
+  const {
+    data: movies,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["trendingMovies"],
+    queryFn: fetchTrendingMovies,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[300px]">
+        <LoadingSpinner size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center min-h-[300px] flex items-center justify-center">
+        영화 정보를 불러오는데 실패했습니다.
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {movies?.map((movie) => (
+        <MovieCardItem key={movie.id} movie={movie} />
+      ))}
     </div>
   );
 }
