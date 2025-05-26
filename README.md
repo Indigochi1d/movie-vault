@@ -1,6 +1,6 @@
 ## My Movie Shelf
 
-본 프로젝트는 Next.js with App router + Tastack Query + Zustand + Tailwindcss v4를 사용하여 간단한 영화 컬렉션 어플리케이션을 제작해보는 것에 있습니다.
+본 프로젝트는 Next.js with App router + Tanstack Query + Zustand + Tailwindcss v4를 사용하여 간단한 영화 컬렉션 어플리케이션을 제작해보는 것에 있습니다.
 
 
 ## 🛠 기술 스택 학습 포인트
