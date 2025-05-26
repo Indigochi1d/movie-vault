@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## My Movie Shelf
 
-## Getting Started
+본 프로젝트는 Next.js with App router + Tastack Query + Zustand + Tailwindcss v4를 사용하여 간단한 영화 컬렉션 어플리케이션을 제작해보는 것에 있습니다.
 
-First, run the development server:
+## 🛠 기술 스택 학습 포인트
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| 기술 | 역할 |
+|------|------|
+| **Next.js App Router** | 라우팅, SSR, 레이아웃, 동적 페이지 구성 |
+| **TanStack Query** | 서버 상태 관리, API 요청, 캐싱 |
+| **Zustand** | 클라이언트 상태 (즐겨찾기, 테마, UI 등) 관리 |
+| **Tailwind CSS** | 반응형 스타일링, 빠른 UI 구성 |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ 주요 기능
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 기능 | 학습 포인트 |
+|------|-------------|
+| 영화 리스트 조회 | `useQuery()`로 API 호출 및 캐싱 |
+| 영화 상세 페이지 | App Router의 동적 라우팅 (`[id]/page.tsx`) |
+| 즐겨찾기 추가/삭제 | Zustand 상태 조작 및 전역 관리 |
+| 다크모드 토글 | Zustand로 상태 저장 + Tailwind 다크모드 |
+| 검색/필터 UI | Zustand로 검색 조건 관리 |
+| SSR로 데이터 패칭 | `fetch()` + `cache: 'no-store'` |
+| 로딩, 에러 처리 | `loading.tsx`, `error.tsx`, `not-found.tsx` 사용 |
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
