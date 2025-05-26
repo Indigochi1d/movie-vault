@@ -2,6 +2,7 @@
 
 본 프로젝트는 Next.js with App router + Tastack Query + Zustand + Tailwindcss v4를 사용하여 간단한 영화 컬렉션 어플리케이션을 제작해보는 것에 있습니다.
 
+
 ## 🛠 기술 스택 학습 포인트
 
 | 기술 | 역할 |
@@ -25,3 +26,6 @@
 | SSR로 데이터 패칭 | `fetch()` + `cache: 'no-store'` |
 | 로딩, 에러 처리 | `loading.tsx`, `error.tsx`, `not-found.tsx` 사용 |
 
+🎬 This project uses data from [The Movie Database (TMDB)](https://www.themoviedb.org/) API for movie information, including titles, posters, ratings, and descriptions.
+
+📝 This product uses the TMDB API but is not endorsed or certified by TMDB.
