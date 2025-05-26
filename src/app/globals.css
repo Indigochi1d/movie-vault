@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sky-lightest: #e0f7ff;
-  --color-sky-lighter: #b3e5fc;
-  --color-sky-light: #81d4fa;
-  --color-sky: #4fc3f7;
-  --color-sky-medium: #29b6f6;
-  --color-sky-dark: #03a9f4;
-  --color-sky-darkest: #0288d1;
+  --color-movie-primary: #19191f;
+  --color-movie-secondary: #111827;
+  --color-gray-primary: #393d47;
+  --color-yellow-star: #eab308;
+  --color-white-title: #f4f4f6;
+  --color-red-primary: #ff2d55;
 }
 
 :root {
