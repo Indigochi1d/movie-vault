@@ -1,9 +1,9 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingMovies, Movie } from "@/lib/tmdb";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { fetchTrendingMovies, Movie } from "@/lib/api/tmdb";
 import Image from "next/image";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 
 interface MovieCardProps {
   movie: Movie;
@@ -42,8 +42,10 @@ export default function MovieCard() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <LoadingSpinner size="large" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[...Array(8)].map((_, index) => (
+          <MovieCardSkeleton key={index} />
+        ))}
       </div>
     );
   }
