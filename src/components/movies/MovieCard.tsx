@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTrendingMovies, Movie } from "@/lib/api/tmdb";
 import Image from "next/image";
 import MovieCardSkeleton from "./MovieCardSkeleton";
+import { roundTo } from "@/utils/utils";
 
 interface MovieCardProps {
   movie: Movie;
@@ -23,13 +24,12 @@ function MovieCardItem({ movie }: MovieCardProps) {
         <h3 className="text-white font-semibold mb-2">{movie.title}</h3>
         <div className="flex items-center">
           <span className="text-yellow-400">★</span>
-          <span className="text-white ml-1">{movie.rating.toFixed(1)}</span>
+          <span className="text-white ml-1">{roundTo(movie.rating, 2)}</span>
         </div>
       </div>
     </div>
   );
 }
-
 export default function MovieCard() {
   const {
     data: movies,
