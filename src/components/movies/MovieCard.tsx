@@ -4,15 +4,27 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTrendingMovies, Movie } from "@/lib/api/tmdb";
 import Image from "next/image";
 import MovieCardSkeleton from "./MovieCardSkeleton";
-import { roundTo } from "@/utils/utils";
+import { roundTo, slugify } from "@/utils/utils";
+import { useMovieStore } from "@/store/movieStore";
+import { useRouter } from "next/navigation";
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 function MovieCardItem({ movie }: MovieCardProps) {
+  const setSelectedMovie = useMovieStore((state) => state.setSelectedMovie);
+  const router = useRouter();
+
+  const handleClick = () => {
+    setSelectedMovie(movie);
+    router.push(`/movies/${slugify(movie.title)}`);
+  };
   return (
-    <div className="bg-movie-secondary rounded-lg overflow-hidden shadow-lg">
+    <div
+      className="bg-movie-secondary rounded-lg overflow-hidden shadow-lg cursor-pointer"
+      onClick={handleClick}
+    >
       <Image
         src={movie.image}
         alt={movie.title}
