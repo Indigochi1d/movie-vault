@@ -1,4 +1,5 @@
-import MovieRecommend from "./MovieRecommend";
+import MovieRecommend from "./client/MovieRecommend";
+import MovieDetail from "./client/MovieDetail";
 
 export default function MovieDetailPage() {
   const movie = {
@@ -94,19 +95,7 @@ export default function MovieDetailPage() {
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 text-white">
       {/* 상단: 포스터, 제목, 평점, 설명 */}
-      <div className="flex gap-8">
-        <div className="w-48 h-64 bg-gray-700 rounded-lg" />
-        <div>
-          <h1 className="text-3xl font-bold">{movie.title}</h1>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="text-yellow-400 text-xl">★</span>
-            <span className="text-lg">{movie.rating}</span>
-          </div>
-          <div className="mt-2 text-gray-300">{movie.releaseDate}</div>
-          <p className="mt-4">{movie.overview}</p>
-        </div>
-      </div>
-
+      <MovieDetail />
       {/* 출연진 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Cast & Crew</h2>
@@ -123,13 +112,11 @@ export default function MovieDetailPage() {
           ))}
         </div>
       </section>
-
       {/* 트레일러 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Trailer</h2>
         <div className="w-full h-64 bg-gray-700 rounded-lg" />
       </section>
-
       {/* 기술 정보 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Technical Details</h2>
@@ -146,10 +133,8 @@ export default function MovieDetailPage() {
           </div>
         </div>
       </section>
-
       {/* 관련 영화 */}
       <MovieRecommend />
-
       {/* 리뷰 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">
