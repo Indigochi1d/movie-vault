@@ -26,7 +26,9 @@ export function MovieTechnicalDetail({ movieId }: { movieId: string }) {
       <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
         <div>
           <div>Duration: {minutesToHours(movieDetail.runtime)}</div>
-          <div>Director: {movieDetail.director}</div>
+          <div>
+            Genre: {movieDetail.genres.map((genre) => genre.name).join(", ")}
+          </div>
         </div>
         <div>
           <div>Release Date: {movieDetail.releaseDate}</div>
@@ -36,7 +38,6 @@ export function MovieTechnicalDetail({ movieId }: { movieId: string }) {
               .map((language) => language.english_name)
               .join(", ")}
           </div>
-          <div>Composer: {movieDetail.composer}</div>
         </div>
       </div>
     </section>

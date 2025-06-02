@@ -1,21 +1,43 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { fetchMovieReviews, Review } from "@/lib/api/tmdb";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+
 export default function MovieReview({ movieId }: { movieId: string }) {
+  const {
+    data: reviews,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["movieReviews", movieId],
+    queryFn: () => fetchMovieReviews(movieId || ""),
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!reviews || reviews.length === 0) return <div>No reviews found</div>;
+
   return (
     <section className="mt-8">
-      <h2 className="text-xl font-semibold mb-2">
-        Reviews ({movie.reviews.length})
-      </h2>
+      <h2 className="text-xl font-semibold mb-2">Reviews ({reviews.length})</h2>
       <div>
-        {movie.reviews.map((review, idx) => (
-          <div key={idx} className="bg-movie-secondary rounded-lg p-4 mb-2">
+        {reviews.map((review: Review) => (
+          <div
+            key={review.id}
+            className="bg-movie-secondary rounded-lg p-4 mb-2"
+          >
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-bold">{review.user}</span>
-              <span className="text-yellow-400">
-                {"★".repeat(review.rating)}
-              </span>
+              <span className="font-bold">{review.author}</span>
+              {review.rating !== null && (
+                <span className="text-yellow-400">
+                  {"★".repeat(Math.round(review.rating) / 2)}
+                </span>
+              )}
             </div>
-            <div className="text-gray-200">{review.comment}</div>
+            <div className="text-gray-200 whitespace-pre-line">
+              {review.content}
+            </div>
           </div>
         ))}
       </div>

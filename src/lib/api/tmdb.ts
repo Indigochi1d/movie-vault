@@ -75,6 +75,28 @@ interface MovieTrailer {
   site?: string;
 }
 
+export interface Review {
+  id: string;
+  author: string;
+  content: string;
+  created_at: string;
+  url: string;
+  rating: number | null;
+  avatar_path: string | null;
+}
+
+interface TMDBReview {
+  id: string;
+  author: string;
+  content: string;
+  created_at: string;
+  url: string;
+  author_details: {
+    rating: number | null;
+    avatar_path: string | null;
+  };
+}
+
 export async function fetchMoviesRecommendation(
   movieId: string
 ): Promise<Movie[]> {
@@ -213,5 +235,34 @@ export async function fetchMovieTrailer(
   } catch (error) {
     console.error("Error fetching movie trailer:", error);
     return { key: "" };
+  }
+}
+
+export async function fetchMovieReviews(movieId: string): Promise<Review[]> {
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/reviews`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch movie reviews");
+    }
+    const data = await res.json();
+    return data.results.map((review: TMDBReview) => ({
+      id: review.id,
+      author: review.author,
+      content: review.content,
+      created_at: review.created_at,
+      url: review.url,
+      rating: review.author_details?.rating ?? null,
+      avatar_path: review.author_details?.avatar_path ?? null,
+    }));
+  } catch (error) {
+    console.error("Error fetching movie reviews:", error);
+    return [];
   }
 }
