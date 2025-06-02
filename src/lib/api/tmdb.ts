@@ -37,6 +37,17 @@ export interface MovieDetail {
   runtime: number;
 }
 
+export interface Cast {
+  id: string;
+  profile_path: string;
+  name: string;
+  character: string;
+}
+
+interface TMDBMovieCast {
+  cast: Cast[];
+}
+
 export async function fetchMoviesRecommendation(
   movieId: string
 ): Promise<Movie[]> {
@@ -124,5 +135,31 @@ export async function fetchMovieDetail(movieId: string): Promise<MovieDetail> {
   } catch (error) {
     console.error("Error fetching movie detail:", error);
     throw error;
+  }
+}
+
+export async function fetchMovieCredits(movieId: string): Promise<Cast[]> {
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch movie credits");
+    }
+    const data: TMDBMovieCast = await res.json();
+    return data.cast.map((cast) => ({
+      id: cast.id.toString(),
+      profile_path: cast.profile_path,
+      name: cast.name,
+      character: cast.character,
+    }));
+  } catch (error) {
+    console.error("Error fetching movie credits:", error);
+    return [];
   }
 }

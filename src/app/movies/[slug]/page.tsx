@@ -1,5 +1,6 @@
 import MovieRecommend from "./client/MovieRecommend";
 import MovieDetail from "./client/MovieDetail";
+import MovieCast from "./client/MovieCast";
 
 export default function MovieDetailPage() {
   const movie = {
@@ -8,15 +9,6 @@ export default function MovieDetailPage() {
     rating: 4.2,
     overview:
       "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
-    cast: [
-      { name: "Ellen McConaughey", role: "Cooper" },
-      { name: "Anne Hathaway", role: "Amelia Brand" },
-      { name: "Jessica Chastain", role: "Murph" },
-      { name: "Michael Caine", role: "Professor Brand" },
-      { name: "Christopher Nolan", role: "Director" },
-      { name: "Hans Zimmer", role: "Composer" },
-      { name: "Kyle Hynes Wooten", role: "Sound" },
-    ],
     technical: {
       genre: "Sci-Fi, Drama, Adventure",
       duration: "2h 49m",
@@ -99,18 +91,7 @@ export default function MovieDetailPage() {
       {/* 출연진 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Cast & Crew</h2>
-        <div className="flex gap-4">
-          {movie.cast.map((person) => (
-            <div
-              key={person.name}
-              className="bg-movie-secondary rounded-lg p-2 w-24 text-center"
-            >
-              <div className="w-16 h-16 bg-gray-600 rounded-full mx-auto mb-1" />
-              <div className="text-sm font-bold">{person.name}</div>
-              <div className="text-xs text-gray-400">{person.role}</div>
-            </div>
-          ))}
-        </div>
+        <MovieCast />
       </section>
       {/* 트레일러 */}
       <section className="mt-8">
