@@ -1,5 +1,5 @@
 import MovieRecommend from "./client/MovieRecommend";
-import MovieDetail from "./client/MovieDetail";
+import MovieDetail, { MovieTechnicalDetail } from "./client/MovieDetail";
 import MovieCast from "./client/MovieCast";
 import MovieTrailer from "./client/MovieTrailer";
 
@@ -100,21 +100,7 @@ export default function MovieDetailPage() {
         <MovieTrailer />
       </section>
       {/* 기술 정보 */}
-      <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-2">Technical Details</h2>
-        <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
-          <div>
-            <div>Genre: {movie.technical.genre}</div>
-            <div>Duration: {movie.technical.duration}</div>
-            <div>Director: {movie.technical.director}</div>
-          </div>
-          <div>
-            <div>Release Date: {movie.technical.releaseDate}</div>
-            <div>Language: {movie.technical.language}</div>
-            <div>Composer: {movie.technical.composer}</div>
-          </div>
-        </div>
-      </section>
+      <MovieTechnicalDetail />
       {/* 관련 영화 */}
       <MovieRecommend />
       {/* 리뷰 */}

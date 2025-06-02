@@ -7,6 +7,47 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { minutesToHours } from "@/utils/utils";
 import Image from "next/image";
 
+export function MovieTechnicalDetail() {
+  const selectedMovie = useMovieStore((state) => state.selectedMovie);
+  const movieId = selectedMovie?.id;
+
+  const {
+    data: movieDetail,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["movieDetail", movieId],
+    queryFn: () => fetchMovieDetail(movieId || ""),
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!movieDetail) return <div>No data</div>;
+
+  return (
+    <section className="mt-8">
+      <h2 className="text-xl font-semibold mb-2">Technical Details</h2>
+      <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
+        <div>
+          <div>
+            Genre: {movieDetail.genres.map((genre) => genre.name).join(", ")}
+          </div>
+          <div>Duration: {minutesToHours(movieDetail.runtime)}</div>
+        </div>
+        <div>
+          <div>Release Date: {movieDetail.releaseDate}</div>
+          <div>
+            Language:{" "}
+            {movieDetail.spoken_languages
+              .map((language) => language.english_name)
+              .join(", ")}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function MovieDetail() {
   const selectedMovie = useMovieStore((state) => state.selectedMovie);
   const movieId = selectedMovie?.id;

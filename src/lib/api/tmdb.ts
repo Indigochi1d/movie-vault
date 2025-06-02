@@ -16,6 +16,16 @@ export interface Movie {
   rating: number;
 }
 
+type Genre = {
+  id: number;
+  name: string;
+};
+type SpokenLanguage = {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
+};
+
 // TMDB API 응답 타입 (내부에서만 사용)
 interface TMDBMovieDetail {
   id: number;
@@ -25,6 +35,8 @@ interface TMDBMovieDetail {
   overview: string;
   release_date: string;
   runtime: number;
+  genres: Genre[];
+  spoken_languages: SpokenLanguage[];
 }
 
 export interface MovieDetail {
@@ -35,6 +47,8 @@ export interface MovieDetail {
   overview: string;
   releaseDate: string;
   runtime: number;
+  genres: Genre[];
+  spoken_languages: SpokenLanguage[];
 }
 
 export interface Cast {
@@ -109,7 +123,6 @@ export async function fetchTrendingMovies(): Promise<Movie[]> {
     }
 
     const data: TMDBResponse = await res.json();
-    console.log("data:", data);
 
     return data.results.map((movie) => ({
       id: movie.id.toString(),
@@ -143,6 +156,8 @@ export async function fetchMovieDetail(movieId: string): Promise<MovieDetail> {
       overview: data.overview,
       releaseDate: data.release_date,
       runtime: data.runtime,
+      genres: data.genres,
+      spoken_languages: data.spoken_languages,
     };
   } catch (error) {
     console.error("Error fetching movie detail:", error);
