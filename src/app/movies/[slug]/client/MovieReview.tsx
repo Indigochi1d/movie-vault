@@ -8,6 +8,8 @@ import { useState } from "react";
 const MAX_LENGTH = 300;
 
 export default function MovieReview({ movieId }: { movieId: string }) {
+  const [expanded, setExpanded] = useState<{ [id: string]: boolean }>({});
+
   const {
     data: reviews,
     isLoading,
@@ -20,9 +22,6 @@ export default function MovieReview({ movieId }: { movieId: string }) {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
   if (!reviews || reviews.length === 0) return <div>No reviews found</div>;
-
-  // 각 리뷰의 펼침 상태를 관리
-  const [expanded, setExpanded] = useState<{ [id: string]: boolean }>({});
 
   const handleToggle = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
