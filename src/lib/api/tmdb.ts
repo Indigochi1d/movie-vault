@@ -48,6 +48,18 @@ interface TMDBMovieCast {
   cast: Cast[];
 }
 
+export interface TMDBMovieTrailer {
+  results: {
+    key: string;
+    site: string;
+  }[];
+}
+
+interface MovieTrailer {
+  key: string;
+  site?: string;
+}
+
 export async function fetchMoviesRecommendation(
   movieId: string
 ): Promise<Movie[]> {
@@ -161,5 +173,28 @@ export async function fetchMovieCredits(movieId: string): Promise<Cast[]> {
   } catch (error) {
     console.error("Error fetching movie credits:", error);
     return [];
+  }
+}
+
+export async function fetchMovieTrailer(
+  movieId: string
+): Promise<MovieTrailer> {
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/videos`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch movie trailer");
+    }
+    const data: TMDBMovieTrailer = await res.json();
+    return data.results[0];
+  } catch (error) {
+    console.error("Error fetching movie trailer:", error);
+    return { key: "" };
   }
 }

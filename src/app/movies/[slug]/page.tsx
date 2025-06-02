@@ -1,6 +1,7 @@
 import MovieRecommend from "./client/MovieRecommend";
 import MovieDetail from "./client/MovieDetail";
 import MovieCast from "./client/MovieCast";
+import MovieTrailer from "./client/MovieTrailer";
 
 export default function MovieDetailPage() {
   const movie = {
@@ -96,7 +97,7 @@ export default function MovieDetailPage() {
       {/* 트레일러 */}
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-2">Trailer</h2>
-        <div className="w-full h-64 bg-gray-700 rounded-lg" />
+        <MovieTrailer />
       </section>
       {/* 기술 정보 */}
       <section className="mt-8">
