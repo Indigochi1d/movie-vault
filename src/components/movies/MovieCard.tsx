@@ -36,7 +36,9 @@ function MovieCardItem({ movie }: MovieCardProps) {
         <h3 className="text-white font-semibold mb-2">{movie.title}</h3>
         <div className="flex items-center">
           <span className="text-yellow-400">★</span>
-          <span className="text-white ml-1">{roundTo(movie.rating, 2)}</span>
+          <span className="text-white ml-1">
+            {roundTo(movie.rating, 1) / 2}
+          </span>
         </div>
       </div>
     </div>
