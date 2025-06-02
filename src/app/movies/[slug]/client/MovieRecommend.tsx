@@ -9,7 +9,6 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 export default function MovieRecommend() {
   const selectedMovie = useMovieStore((state) => state.selectedMovie);
   const movieId = selectedMovie?.id;
-  console.log("movieId:", movieId);
   const {
     data: movies,
     isLoading,
@@ -22,7 +21,6 @@ export default function MovieRecommend() {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
   if (!movies) return <div>No data</div>;
-  console.log("movies:", movies);
 
   return (
     <section className="mt-8">
