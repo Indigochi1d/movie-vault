@@ -19,7 +19,7 @@ export default function MovieTrailer({ movieId }: { movieId: string }) {
   if (!movieTrailer) return <div>No trailer found</div>;
 
   return movieTrailer ? (
-    <div className="w-full h-64 bg-black rounded-lg overflow-hidden flex items-center justify-center">
+    <div className="w-full h-120 bg-black rounded-lg overflow-hidden flex items-center justify-center">
       <iframe
         width="100%"
         height="100%"
@@ -27,7 +27,7 @@ export default function MovieTrailer({ movieId }: { movieId: string }) {
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
-        className="w-full h-64 rounded-lg"
+        className="w-full h-full rounded-lg"
       ></iframe>
     </div>
   ) : (

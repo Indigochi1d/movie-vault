@@ -21,7 +21,13 @@ export default function MovieReview({ movieId }: { movieId: string }) {
 
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
-  if (!reviews || reviews.length === 0) return <div>No reviews found</div>;
+  if (!reviews || reviews.length === 0)
+    return (
+      <section className="mt-8">
+        <h2 className="text-xl font-semibold mb-2">Reviews</h2>
+        <div className="text-gray-500">No reviews found</div>
+      </section>
+    );
 
   const handleToggle = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));

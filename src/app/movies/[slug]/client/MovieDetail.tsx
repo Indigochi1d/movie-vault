@@ -5,6 +5,7 @@ import { fetchMovieDetail } from "@/lib/api/tmdb";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { minutesToHours } from "@/utils/utils";
 import Image from "next/image";
+import { roundTo } from "@/utils/utils";
 
 export function MovieTechnicalDetail({ movieId }: { movieId: string }) {
   const {
@@ -71,7 +72,7 @@ export default function MovieDetail({ movieId }: { movieId: string }) {
         <h1 className="text-3xl font-bold">{movieDetail?.title}</h1>
         <div className="mt-2 flex items-center gap-2">
           <span className="text-yellow-400 text-xl">★</span>
-          <span className="text-lg">{movieDetail?.rating / 2}</span>
+          <span className="text-lg">{roundTo(movieDetail?.rating / 2, 1)}</span>
         </div>
         <div className="w-full flex flex-row space-x-3 mt-2 text-gray-300">
           <div>{movieDetail?.releaseDate}</div>

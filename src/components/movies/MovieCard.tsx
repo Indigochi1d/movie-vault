@@ -20,6 +20,7 @@ function MovieCardItem({ movie }: MovieCardProps) {
     setSelectedMovie(movie);
     router.push(`/movies/${slugify(movie.title)}`);
   };
+
   return (
     <div
       className="bg-movie-secondary rounded-lg overflow-hidden shadow-lg cursor-pointer"
@@ -34,11 +35,13 @@ function MovieCardItem({ movie }: MovieCardProps) {
       />
       <div className="p-4">
         <h3 className="text-white font-semibold mb-2">{movie.title}</h3>
-        <div className="flex items-center">
-          <span className="text-yellow-400">★</span>
-          <span className="text-white ml-1">
-            {roundTo(movie.rating, 1) / 2}
-          </span>
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-yellow-400">★</span>
+            <span className="text-white ml-1">
+              {roundTo(movie.rating, 1) / 2}
+            </span>
+          </div>
         </div>
       </div>
     </div>

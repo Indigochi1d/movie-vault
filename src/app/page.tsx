@@ -7,7 +7,6 @@ export default function Home() {
         Discover Your Next Favorite Movie
       </h1>
       <MovieSection title="Trending Now" />
-      <MovieSection title="Recently Added" />
     </main>
   );
 }

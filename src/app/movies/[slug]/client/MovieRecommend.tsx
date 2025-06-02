@@ -18,7 +18,7 @@ export default function MovieRecommend({ movieId }: { movieId: string }) {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
   if (!recommendations || recommendations.length === 0)
-    return <div>No recommendations found</div>;
+    return <div className="text-gray-500">No recommendations found</div>;
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
