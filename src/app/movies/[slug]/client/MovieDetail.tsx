@@ -1,16 +1,12 @@
 "use client";
 
-import { useMovieStore } from "@/store/movieStore";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieDetail } from "@/lib/api/tmdb";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { minutesToHours } from "@/utils/utils";
 import Image from "next/image";
 
-export function MovieTechnicalDetail() {
-  const selectedMovie = useMovieStore((state) => state.selectedMovie);
-  const movieId = selectedMovie?.id;
-
+export function MovieTechnicalDetail({ movieId }: { movieId: string }) {
   const {
     data: movieDetail,
     isLoading,
@@ -29,10 +25,8 @@ export function MovieTechnicalDetail() {
       <h2 className="text-xl font-semibold mb-2">Technical Details</h2>
       <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
         <div>
-          <div>
-            Genre: {movieDetail.genres.map((genre) => genre.name).join(", ")}
-          </div>
           <div>Duration: {minutesToHours(movieDetail.runtime)}</div>
+          <div>Director: {movieDetail.director}</div>
         </div>
         <div>
           <div>Release Date: {movieDetail.releaseDate}</div>
@@ -42,16 +36,14 @@ export function MovieTechnicalDetail() {
               .map((language) => language.english_name)
               .join(", ")}
           </div>
+          <div>Composer: {movieDetail.composer}</div>
         </div>
       </div>
     </section>
   );
 }
 
-export default function MovieDetail() {
-  const selectedMovie = useMovieStore((state) => state.selectedMovie);
-  const movieId = selectedMovie?.id;
-
+export default function MovieDetail({ movieId }: { movieId: string }) {
   const {
     data: movieDetail,
     isLoading,

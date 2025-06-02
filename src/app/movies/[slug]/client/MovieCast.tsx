@@ -1,6 +1,5 @@
 "use client";
 
-import { useMovieStore } from "@/store/movieStore";
 import { useQuery } from "@tanstack/react-query";
 import { Cast, fetchMovieCredits } from "@/lib/api/tmdb";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
@@ -8,10 +7,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-export default function MovieCast() {
-  const selectedMovie = useMovieStore((state) => state.selectedMovie);
-  const movieId = selectedMovie?.id;
-
+export default function MovieCast({ movieId }: { movieId: string }) {
   const {
     data: movieCast,
     isLoading,
@@ -29,7 +25,6 @@ export default function MovieCast() {
     .slice(0, 25);
   if (casts.length === 0) return <div>No one has been cast yet</div>;
 
-  console.log(casts);
   return (
     <Swiper spaceBetween={16} slidesPerView={"auto"} className="!pb-4">
       {casts.map((cast: Cast) => (

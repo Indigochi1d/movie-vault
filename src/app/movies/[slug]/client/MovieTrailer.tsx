@@ -1,14 +1,10 @@
 "use client";
 
-import { useMovieStore } from "@/store/movieStore";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieTrailer } from "@/lib/api/tmdb";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
-export default function MovieTrailer() {
-  const selectedMovie = useMovieStore((state) => state.selectedMovie);
-  const movieId = selectedMovie?.id;
-
+export default function MovieTrailer({ movieId }: { movieId: string }) {
   const {
     data: movieTrailer,
     isLoading,
@@ -23,7 +19,7 @@ export default function MovieTrailer() {
   if (!movieTrailer) return <div>No trailer found</div>;
 
   return movieTrailer ? (
-    <div className="w-full h-120 bg-black rounded-lg overflow-hidden flex items-center justify-center">
+    <div className="w-full h-64 bg-black rounded-lg overflow-hidden flex items-center justify-center">
       <iframe
         width="100%"
         height="100%"
@@ -31,7 +27,7 @@ export default function MovieTrailer() {
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
-        className="w-full h-full rounded-lg"
+        className="w-full h-64 rounded-lg"
       ></iframe>
     </div>
   ) : (
