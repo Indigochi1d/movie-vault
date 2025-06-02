@@ -56,6 +56,7 @@ export interface Cast {
   profile_path: string;
   name: string;
   character: string;
+  known_for_department: string;
 }
 
 interface TMDBMovieCast {
@@ -184,6 +185,7 @@ export async function fetchMovieCredits(movieId: string): Promise<Cast[]> {
       profile_path: cast.profile_path,
       name: cast.name,
       character: cast.character,
+      known_for_department: cast.known_for_department,
     }));
   } catch (error) {
     console.error("Error fetching movie credits:", error);

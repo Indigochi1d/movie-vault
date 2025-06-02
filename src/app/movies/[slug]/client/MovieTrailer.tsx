@@ -21,7 +21,6 @@ export default function MovieTrailer() {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error: {error.message}</div>;
   if (!movieTrailer) return <div>No trailer found</div>;
-  console.log(movieTrailer.key);
 
   return movieTrailer ? (
     <div className="w-full h-120 bg-black rounded-lg overflow-hidden flex items-center justify-center">

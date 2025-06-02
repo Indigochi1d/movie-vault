@@ -24,9 +24,12 @@ export default function MovieCast() {
   if (error) return <div>Error: {error.message}</div>;
   if (!movieCast) return <div>No data</div>;
 
-  const casts = movieCast;
+  const casts = movieCast
+    .filter((cast) => cast.known_for_department === "Acting")
+    .slice(0, 25);
   if (casts.length === 0) return <div>No one has been cast yet</div>;
 
+  console.log(casts);
   return (
     <Swiper spaceBetween={16} slidesPerView={"auto"} className="!pb-4">
       {casts.map((cast: Cast) => (
