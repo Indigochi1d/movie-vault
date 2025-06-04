@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchTrendingMovies, Movie } from "@/lib/api/tmdb";
-import Image from "next/image";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import { roundTo, slugify } from "@/utils/utils";
 import { useMovieStore } from "@/store/movieStore";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface MovieCardProps {
   movies?: Movie[];
@@ -17,6 +17,7 @@ function MovieCardItem({ movie }: { movie: Movie }) {
   const router = useRouter();
 
   const handleClick = () => {
+    console.log(movie.image);
     setSelectedMovie(movie);
     router.push(`/movies/${slugify(movie.title)}`);
   };
@@ -26,13 +27,23 @@ function MovieCardItem({ movie }: { movie: Movie }) {
       className="bg-movie-secondary rounded-lg overflow-hidden shadow-lg cursor-pointer"
       onClick={handleClick}
     >
-      <Image
-        src={movie.image}
-        alt={movie.title}
-        className="w-full h-[300px] object-cover"
-        width={300}
-        height={180}
-      />
+      {movie.image.slice(-4) === "null" ? (
+        <Image
+          src="/images/no_poster.svg"
+          alt={movie.title}
+          className="w-full h-[300px] object-cover"
+          width={300}
+          height={180}
+        />
+      ) : (
+        <Image
+          src={movie.image}
+          alt={movie.title}
+          className="w-full h-[300px] object-cover"
+          width={300}
+          height={180}
+        />
+      )}
       <div className="p-4">
         <h3 className="text-white font-semibold mb-2">{movie.title}</h3>
         <div className="flex items-center justify-between">

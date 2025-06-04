@@ -272,7 +272,7 @@ export async function searchMovies(query: string): Promise<Movie[]> {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
         query
-      )}&language=ko-KR`,
+      )}&language=en-US`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,

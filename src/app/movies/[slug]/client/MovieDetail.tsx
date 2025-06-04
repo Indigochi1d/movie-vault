@@ -61,13 +61,24 @@ export default function MovieDetail({ movieId }: { movieId: string }) {
 
   return (
     <div className="flex gap-8">
-      <Image
-        src={movieDetail?.image}
-        alt={movieDetail?.title}
-        width={500}
-        height={280}
-        className="w-48 h-64 object-cover"
-      />
+      {movieDetail?.image.slice(-4) === "null" ? (
+        <Image
+          src="/images/no_poster.svg"
+          alt={movieDetail?.title}
+          width={500}
+          height={280}
+          className="w-48 h-64 object-cover"
+        />
+      ) : (
+        <Image
+          src={movieDetail?.image}
+          alt={movieDetail?.title}
+          width={500}
+          height={280}
+          className="w-48 h-64 object-cover"
+        />
+      )}
+
       <div>
         <h1 className="text-3xl font-bold">{movieDetail?.title}</h1>
         <div className="mt-2 flex items-center gap-2">
