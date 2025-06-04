@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SearchBar } from "./SearchBar";
-import { ThemeToggle } from "./ThemeToggle";
 
 const Header = () => {
   return (
@@ -37,7 +36,6 @@ const Header = () => {
       {/* 우측: 검색창 및 다크모드 토글 */}
       <div className="flex items-center space-x-4">
         <SearchBar />
-        <ThemeToggle />
       </div>
     </header>
   );
