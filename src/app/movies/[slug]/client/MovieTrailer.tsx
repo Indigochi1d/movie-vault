@@ -15,10 +15,10 @@ export default function MovieTrailer({ movieId }: { movieId: string }) {
   });
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!movieTrailer) return <div>No trailer found</div>;
+  if (error || !movieTrailer)
+    return <p className="text-gray-500">No trailer found</p>;
 
-  return movieTrailer ? (
+  return (
     <div className="w-full h-120 bg-black rounded-lg overflow-hidden flex items-center justify-center">
       <iframe
         width="100%"
@@ -30,7 +30,5 @@ export default function MovieTrailer({ movieId }: { movieId: string }) {
         className="w-full h-full rounded-lg"
       ></iframe>
     </div>
-  ) : (
-    <div className="w-full h-64 bg-gray-700 rounded-lg"></div>
   );
 }

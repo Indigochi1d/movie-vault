@@ -23,7 +23,8 @@ export default function MovieCast({ movieId }: { movieId: string }) {
   const casts = movieCast
     .filter((cast) => cast.known_for_department === "Acting")
     .slice(0, 25);
-  if (casts.length === 0) return <div>No one has been cast yet</div>;
+  if (casts.length === 0)
+    return <div className="text-gray-500">No one has been cast yet</div>;
 
   return (
     <Swiper spaceBetween={16} slidesPerView={"auto"} className="!pb-4">

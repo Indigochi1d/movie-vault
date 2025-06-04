@@ -217,7 +217,7 @@ export async function fetchMovieCredits(movieId: string): Promise<Cast[]> {
 
 export async function fetchMovieTrailer(
   movieId: string
-): Promise<MovieTrailer> {
+): Promise<MovieTrailer | null> {
   try {
     const res = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}/videos`,
@@ -231,10 +231,10 @@ export async function fetchMovieTrailer(
       throw new Error("Failed to fetch movie trailer");
     }
     const data: TMDBMovieTrailer = await res.json();
-    return data.results[0];
+    return data.results[0] || null;
   } catch (error) {
     console.error("Error fetching movie trailer:", error);
-    return { key: "" };
+    return null;
   }
 }
 
