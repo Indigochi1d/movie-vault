@@ -9,10 +9,10 @@ import { useMovieStore } from "@/store/movieStore";
 import { useRouter } from "next/navigation";
 
 interface MovieCardProps {
-  movie: Movie;
+  movies?: Movie[];
 }
 
-function MovieCardItem({ movie }: MovieCardProps) {
+function MovieCardItem({ movie }: { movie: Movie }) {
   const setSelectedMovie = useMovieStore((state) => state.setSelectedMovie);
   const router = useRouter();
 
@@ -47,17 +47,21 @@ function MovieCardItem({ movie }: MovieCardProps) {
     </div>
   );
 }
-export default function MovieCard() {
+
+export default function MovieCard({ movies }: MovieCardProps) {
   const {
-    data: movies,
+    data: trendingMovies,
     isLoading,
     error,
   } = useQuery({
     queryKey: ["trendingMovies"],
     queryFn: fetchTrendingMovies,
+    enabled: !movies, // movies prop이 없을 때만 trending movies를 가져옴
   });
 
-  if (isLoading) {
+  const displayMovies = movies || trendingMovies;
+
+  if (isLoading && !movies) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(8)].map((_, index) => (
@@ -67,7 +71,7 @@ export default function MovieCard() {
     );
   }
 
-  if (error) {
+  if (error && !movies) {
     return (
       <div className="text-red-500 text-center min-h-[300px] flex items-center justify-center">
         영화 정보를 불러오는데 실패했습니다.
@@ -75,9 +79,17 @@ export default function MovieCard() {
     );
   }
 
+  if (!displayMovies || displayMovies.length === 0) {
+    return (
+      <div className="text-white text-center min-h-[300px] flex items-center justify-center">
+        검색 결과가 없습니다.
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {movies?.map((movie) => (
+      {displayMovies.map((movie) => (
         <MovieCardItem key={movie.id} movie={movie} />
       ))}
     </div>

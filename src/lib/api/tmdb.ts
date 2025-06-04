@@ -266,3 +266,33 @@ export async function fetchMovieReviews(movieId: string): Promise<Review[]> {
     return [];
   }
 }
+
+export async function searchMovies(query: string): Promise<Movie[]> {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+        query
+      )}&language=ko-KR`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("영화 검색에 실패했습니다.");
+    }
+
+    const data = await response.json();
+    return data.results.map((movie: TMDBMovie) => ({
+      id: movie.id.toString(),
+      title: movie.title,
+      image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      rating: movie.vote_average,
+    }));
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    return [];
+  }
+}
